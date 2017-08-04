@@ -1,0 +1,34 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Vagrantfile API/syntax version. Don't touch unless you know what you're doing!
+VAGRANTFILE_API_VERSION = "2"
+
+Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
+
+  # from: https://unix.stackexchange.com/questions/176687/set-storage-size-on-creation-of-vm-virtualbox/379634#379634
+  required_plugins = %w( vagrant-vbguest vagrant-disksize )
+  _retry = false
+  required_plugins.each do |plugin|
+      unless Vagrant.has_plugin? plugin
+          system "vagrant plugin install #{plugin}"
+          _retry=true
+      end
+  end
+
+  if (_retry)
+      exec "vagrant " + ARGV.join(' ')
+  end
+
+  config.vm.provider "virtualbox" do |v|
+    v.name = "dokku"
+    v.memory = 2048
+    v.cpus = 2
+  end
+
+  config.vm.box = "ubuntu/xenial64"
+  config.disksize.size = "40GB"
+  # Setting MAC address to get static DHCP lease
+  config.vm.network :public_network, bridge: "eth0", :mac => "0800278f9cfa"
+  config.vm.provision "shell", path: "provision.sh"
+end
