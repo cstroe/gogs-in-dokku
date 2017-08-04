@@ -55,6 +55,11 @@ We need to save the Gogs files in a volume so that we don't lose our Git reposit
     sudo chown root:root /var/lib/dokku/data/storage/gogs_data
     dokku storage:mount gogs /var/lib/dokku/data/storage/gogs_data:/data
 
+We also need to use a custom proxy port for Gogs, since our system SSH service is already listening on port `22`:
+
+    dokku proxy:ports-add gogs http:2222:22
+    dokku proxy:ports-remove gogs http:22:22
+
 Now we can pull and deploy the Docker image from dockerhub:
 
     docker pull gogs/gogs:latest
