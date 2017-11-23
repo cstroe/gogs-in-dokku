@@ -10,9 +10,9 @@ A walkthrough for running Gogs in Dokku.
 
 ## Start a Dokku VM
 
-To get a Dokku instance quickly up and running, I've created a `Vagrantfile` and `provision.sh` that creates a VM with Dokku installed.  
+To get a Dokku instance quickly up and running, I've created a [Vagrantfile](https://github.com/cstroe/gogs-in-dokku/blob/master/Vagrantfile) and [provision.sh](https://github.com/cstroe/gogs-in-dokku/blob/master/provision.sh) that creates a VM with Dokku installed.  
 
-**NOTE**: You can use the same commands from `provision.sh` to install Dokku on your Ubuntu 16.04 server if you don't want to use Vagrant.
+**NOTE**: You can use the same commands from [provision.sh](https://github.com/cstroe/gogs-in-dokku/blob/master/provision.sh) to install Dokku on your Ubuntu 16.04 server if you don't want to use Vagrant.
 
 To create the VM simply type:
 
